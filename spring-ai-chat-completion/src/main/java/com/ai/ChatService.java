@@ -13,10 +13,13 @@ public class ChatService {
   }
 
   // Synchronous completion
-  public String completion(String message) {
-    return this.chatClient.prompt() //
-        .user(message) //
-        .call() //
-        .content();
+  public String completion(String message, String systemPrompt) {
+    ChatClient.ChatClientRequestSpec spec = this.chatClient.prompt();
+
+    if (systemPrompt != null && !systemPrompt.isBlank()) {
+      spec = spec.system(systemPrompt);
+    }
+
+    return spec.user(message).call().content();
   }
 }

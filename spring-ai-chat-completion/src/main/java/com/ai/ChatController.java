@@ -22,8 +22,10 @@ public class ChatController {
 
   @GetMapping("/v1/chat/completions")
   public ResponseEntity<Map<String, String>> completion(
-      @RequestParam(value = "message") String message) {
-    String response = chatService.completion(message);
+      @RequestParam("message") String message,
+      @RequestParam(value = "systemPrompt", required = false) String systemPrompt) {
+
+    String response = chatService.completion(message, systemPrompt);
     return ResponseEntity.ok(Collections.singletonMap("completion", response));
   }
 
