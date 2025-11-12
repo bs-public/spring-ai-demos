@@ -1,0 +1,8 @@
+### Travel Planner Request
+POST http://localhost:8080/v1/chat/completions
+Content-Type: application/json
+
+{
+  "message": "Plan a 3-day vacation in a Test city including weather, tourist places and estimated budget.",
+  "systemPrompt": "You are a helpful travel planner."
+}
