@@ -15,12 +15,18 @@ public class FunctionCallingService {
     this.travelTools = travelTools;
   }
 
-  public String planTrip(String userPrompt) {
-    return chatClient
-        .prompt()
-        .user(userPrompt)
-        .tools(travelTools) // provide tool(s) to model
-        .call()
+  public String planTrip(String userPrompt, String systemPrompt) {
+
+    ChatClient.ChatClientRequestSpec spec = chatClient.prompt();
+
+    if (systemPrompt != null && !systemPrompt.trim().isEmpty()) {
+      spec = spec.system(systemPrompt);
+    }
+
+    return spec //
+        .user(userPrompt) //
+        .tools(travelTools) //
+        .call() //
         .content();
   }
 }
